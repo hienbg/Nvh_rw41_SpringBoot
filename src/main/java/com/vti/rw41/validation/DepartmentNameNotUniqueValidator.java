@@ -12,7 +12,7 @@ public class DepartmentNameNotUniqueValidator implements ConstraintValidator<Dep
     DepartmentRepository departmentRepository;
 
     @Override
-    public boolean isValid(String productName, ConstraintValidatorContext context) {
-        return departmentRepository.isDepartmentNameNotExists(productName);
+    public boolean isValid(String name, ConstraintValidatorContext context) {
+        return departmentRepository.isDepartmentNameNotExists(name);
     }
 }

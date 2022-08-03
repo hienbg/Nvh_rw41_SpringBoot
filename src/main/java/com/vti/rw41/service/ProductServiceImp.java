@@ -1,18 +1,13 @@
 package com.vti.rw41.service;
 
 import com.vti.rw41.dto.ProductRequest;
-import com.vti.rw41.entity.Product;
-import com.vti.rw41.enumurations.ProductStatus;
+import com.vti.rw41.entity.ProductEntity;
 import com.vti.rw41.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,18 +36,18 @@ public class ProductServiceImp implements ProductServer {
 //    }
 
     @Override
-    public Page<Product> getAllProduct(Pageable pageable) {
+    public Page<ProductEntity> getAllProduct(Pageable pageable) {
         return productRepository.findAll(pageable);
     }
 
     @Override
-    public Optional<Product> getProductById(Integer id) {
+    public Optional<ProductEntity> getProductById(Integer id) {
         return productRepository.findById(id);
     }
 
     @Override
-    public Product createProduct(ProductRequest inProduct) {
-        Product product = new Product();
+    public ProductEntity createProduct(ProductRequest inProduct) {
+        ProductEntity product = new ProductEntity();
         product.setProductName(inProduct.getProductName());
         product.setCreatedDate(inProduct.getCreatedDate());
         product.setUpdatedDate(inProduct.getUpdatedDate());
@@ -63,16 +58,16 @@ public class ProductServiceImp implements ProductServer {
     }
 
     @Override
-    public Optional<Product> deleteProductById(Integer id) {
-        Optional<Product> product = productRepository.findById(id);
+    public Optional<ProductEntity> deleteProductById(Integer id) {
+        Optional<ProductEntity> product = productRepository.findById(id);
         product.ifPresent(p -> productRepository.delete(p));
         return product;
 
     }
 
     @Override
-    public Optional<Product> updateProduct(Integer id, ProductRequest product) {
-        Optional<Product> oldProduct = productRepository.findById(id);
+    public Optional<ProductEntity> updateProduct(Integer id, ProductRequest product) {
+        Optional<ProductEntity> oldProduct = productRepository.findById(id);
         oldProduct.ifPresent(p -> {
             p.setProductName(product.getProductName());
             p.setCreatedDate(product.getCreatedDate());

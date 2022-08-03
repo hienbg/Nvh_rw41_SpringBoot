@@ -1,7 +1,7 @@
 package com.vti.rw41.service;
 
 import com.vti.rw41.dto.DepartmentRequest;
-import com.vti.rw41.entity.Department;
+import com.vti.rw41.entity.DepartmentEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,17 +10,17 @@ import java.util.Optional;
 
 public interface DepartmentService {
     @Autowired
-    Page<Department> getAllDepartments(Pageable pageable);
+    Page<DepartmentEntity> getAllDepartments(Pageable pageable);
 
-    Optional<Department> getDepById(Integer id);
+    Optional<DepartmentEntity> getDepById(Integer id);
 
-    Department addDepartment(DepartmentRequest department);
+    DepartmentEntity addDepartment(DepartmentRequest department);
 
-    Optional<Department> deleteDepartmentById(Integer id);
+    Optional<DepartmentEntity> deleteDepartmentById(Integer id);
 
-    Optional<Department> updateDepartmentById(Integer id, DepartmentRequest department);
+    Optional<DepartmentEntity> updateDepartmentById(Integer id, DepartmentRequest department);
 
-    Department getDepByName(String name);
+    DepartmentEntity getDepByName(String name);
 
-    public Page<Department> getDepByNameLike(String name, Pageable pageable);
+    public Page<DepartmentEntity> getDepByNameLike(String name, Pageable pageable);
 }

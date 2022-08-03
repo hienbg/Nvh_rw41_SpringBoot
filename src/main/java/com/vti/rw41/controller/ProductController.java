@@ -1,7 +1,7 @@
 package com.vti.rw41.controller;
 
 import com.vti.rw41.dto.ProductRequest;
-import com.vti.rw41.entity.Product;
+import com.vti.rw41.entity.ProductEntity;
 import com.vti.rw41.service.ProductServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,18 +18,18 @@ public class ProductController {
     ProductServer server;
 
     @GetMapping
-    public Page<Product> getAllProduct(Pageable pageable) {
+    public Page<ProductEntity> getAllProduct(Pageable pageable) {
         return server.getAllProduct(pageable);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Optional<Product> getProductById(@PathVariable Integer id) {
+    public Optional<ProductEntity> getProductById(@PathVariable Integer id) {
         return server.getProductById(id);
     }
 
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public Product createProduct(@Valid @RequestBody ProductRequest inProduct) {
+    public ProductEntity createProduct(@Valid @RequestBody ProductRequest inProduct) {
         return server.createProduct(inProduct);
     }
 
@@ -39,7 +39,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Optional<Product> updateProduct(@PathVariable Integer id, @Valid @RequestBody ProductRequest product) {
+    public Optional<ProductEntity> updateProduct(@PathVariable Integer id, @Valid @RequestBody ProductRequest product) {
         return server.updateProduct(id, product);
     }
 
