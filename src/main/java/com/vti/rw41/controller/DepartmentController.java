@@ -3,13 +3,13 @@ package com.vti.rw41.controller;
 import com.vti.rw41.dto.DepartmentRequest;
 import com.vti.rw41.entity.Department;
 import com.vti.rw41.service.DepartmentService;
-import com.vti.rw41.service.DepartmentServiceImp;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 @Log4j2
@@ -29,8 +29,8 @@ public class DepartmentController {
     DepartmentService departmentService;
 
     @GetMapping
-    public List<Department> getAllDepartment() {
-        return departmentService.getAllDepartment();
+    public Page<Department> getAllDepartments(Pageable pageable) {
+        return departmentService.getAllDepartments(pageable);
     }
 
     // @GetMapping("/{id}")
@@ -42,6 +42,11 @@ public class DepartmentController {
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
     public Department getDepByName(@PathVariable String name) {
         return departmentService.getDepByName(name);
+    }
+
+    @RequestMapping(value = "/nameLike/{name}", method = RequestMethod.GET)
+    public Page<Department> getDepByNameLike(String name, Pageable pageable) {
+        return departmentService.getDepByNameLike(name, pageable);
     }
 
     // @PostMapping

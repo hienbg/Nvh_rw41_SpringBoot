@@ -14,20 +14,19 @@ import java.time.LocalDateTime;
 @ToString
 @Entity
 @Table(name = "product")
-public class Product{
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // @GeneratedValue(generator = "productIdSeq") // -> su sung seq
-//    @SequenceGenerator( // khai bao seq
-//            sequenceName = "productIdSeq", //-> ten cua sequence
-//            name = "productIdSeq",//-> ten cua sequence
-//            initialValue = 1, //gia tri dau tien
-//            allocationSize = 2) // buoc nhay
+    //    @SequenceGenerator( // khai bao seq
+    //            sequenceName = "productIdSeq", //-> ten cua sequence
+    //            name = "productIdSeq",//-> ten cua sequence
+    //            initialValue = 1, //gia tri dau tien
+    //            allocationSize = 2) // buoc nhay
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name")
     private String productName;
 
     private Double price;
@@ -38,6 +37,4 @@ public class Product{
 
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
-
-
 }

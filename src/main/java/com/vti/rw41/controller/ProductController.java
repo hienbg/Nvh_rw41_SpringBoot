@@ -1,14 +1,14 @@
 package com.vti.rw41.controller;
 
 import com.vti.rw41.dto.ProductRequest;
-import com.vti.rw41.entity.Department;
 import com.vti.rw41.entity.Product;
 import com.vti.rw41.service.ProductServer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -16,23 +16,23 @@ import java.util.Optional;
 public class ProductController {
     @Autowired
     ProductServer server;
+
     @GetMapping
-    public List<Product> getAllProduct() {
-        return server.getAllProduct();
+    public Page<Product> getAllProduct(Pageable pageable) {
+        return server.getAllProduct(pageable);
     }
-    // @GetMapping("/{id}")
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Optional<Product> getProductById(@PathVariable Integer id) {
         return server.getProductById(id);
     }
 
-    // @PostMapping
+
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Product createProduct(@Valid @RequestBody ProductRequest inProduct) {
         return server.createProduct(inProduct);
     }
 
-    //@DeleteMapping
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteProductById(@PathVariable Integer id) {
         server.deleteProductById(id);
