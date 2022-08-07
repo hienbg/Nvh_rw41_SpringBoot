@@ -2,6 +2,7 @@ package com.vti.rw41.service;
 
 import com.vti.rw41.dto.DepartmentRequest;
 import com.vti.rw41.entity.DepartmentEntity;
+import com.vti.rw41.exeption.ApiException;
 import com.vti.rw41.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,35 +35,44 @@ public class DepartmentServiceImp implements DepartmentService {
 
     @Override
     public Optional<DepartmentEntity> getDepById(Integer id) {
-        return departmentRepository.findById(id);
+        DepartmentEntity department = departmentRepository.findById(id).
+                orElseThrow(() -> new ApiException("department.not.exists"));
+        return Optional.of(department);
     }
 
     @Override
     public DepartmentEntity addDepartment(DepartmentRequest department) {
-        DepartmentEntity dep = new DepartmentEntity();
-        dep.setName(department.getName());
-        return departmentRepository.save(dep);
+        DepartmentEntity departmentEntity = new DepartmentEntity();
+        if (!departmentRepository.isDepartmentNameNotExists(department.getName())) {
+            throw new ApiException("department.exists");
+        }
+        departmentEntity.setName(department.getName());
+        return departmentRepository.save(departmentEntity);
     }
 
     @Override
     public Optional<DepartmentEntity> deleteDepartmentById(Integer id) {
-        Optional<DepartmentEntity> department = departmentRepository.findById(id);
-        department.ifPresent(d -> departmentRepository.delete(d));
-        return department;
+        DepartmentEntity department = departmentRepository.findById(id)
+                .orElseThrow(()-> new ApiException("department.not.exists"));
+       departmentRepository.delete(department);
+        return Optional.of(department);
     }
 
 
-    public Optional<DepartmentEntity> updateDepartmentById(Integer id, DepartmentRequest department) {
-        Optional<DepartmentEntity> oldDepartment = departmentRepository.findById(id);
-        oldDepartment.ifPresent(d -> {
-            d.setName(department.getName());
-            departmentRepository.save(d);
-        });
+    public DepartmentEntity updateDepartmentById(Integer id, DepartmentRequest department) {
+        DepartmentEntity oldDepartment = departmentRepository.findById(id)
+                .orElseThrow(() -> new ApiException("department.not.exists"));
+        oldDepartment.setName(department.getName());
+        departmentRepository.save(oldDepartment);
         return oldDepartment;
     }
 
     @Override
     public DepartmentEntity getDepByName(String name) {
+        DepartmentEntity department= departmentRepository.findByName(name);
+        if(department== null){
+            throw new ApiException("department.not.exists");
+        }
         return departmentRepository.findByName(name);
     }
 

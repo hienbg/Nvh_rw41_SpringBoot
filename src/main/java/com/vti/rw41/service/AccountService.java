@@ -2,6 +2,7 @@ package com.vti.rw41.service;
 
 import com.vti.rw41.dto.AccountRequest;
 import com.vti.rw41.entity.AccountEntity;
+import com.vti.rw41.exeption.ApiException;
 import com.vti.rw41.repository.AccountRepository;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,9 @@ public class AccountService {
         account.setPassword(accountRequest.getPassword());
         account.setFullName(accountRequest.getFullName());
         account.setBirthday(accountRequest.getBirthday());
+        throw new ApiException("account.not.exists");
 
-        return repository.save(account);
+       // return repository.save(account);
 
     }
 }

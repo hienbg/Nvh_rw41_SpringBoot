@@ -62,7 +62,7 @@ public class DepartmentController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Optional<DepartmentEntity> updateDepartmentById(@PathVariable Integer id,
+    public DepartmentEntity updateDepartmentById(@PathVariable Integer id,
                                                            @Valid @RequestBody DepartmentRequest department) {
         return departmentService.updateDepartmentById(id, department);
     }

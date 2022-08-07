@@ -11,6 +11,7 @@ import java.time.LocalDate;
 public class AccountEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
 
     private String email;
