@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -49,8 +50,8 @@ public class ProductServiceImp implements ProductServer {
     public ProductEntity createProduct(ProductRequest inProduct) {
         ProductEntity product = new ProductEntity();
         product.setProductName(inProduct.getProductName());
-        product.setCreatedDate(inProduct.getCreatedDate());
-        product.setUpdatedDate(inProduct.getUpdatedDate());
+        product.setCreatedDate(LocalDateTime.now());
+        product.setUpdatedDate(LocalDateTime.now());
         product.setPrice(inProduct.getPrice());
         product.setStatus(inProduct.getStatus());
 
